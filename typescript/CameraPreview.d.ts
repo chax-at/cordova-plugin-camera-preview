@@ -39,12 +39,20 @@ declare module 'cordova-plugin-camera-preview' {
     width?: number;
   }
 
+  interface CameraPreviewSetPreviewDimensionsOptions {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }
+
   interface CameraPreview {
     startCamera(options?: CameraPreviewStartCameraOptions, onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
     stopCamera(onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
     switchCamera(onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
     hide(onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
     show(onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
+    setPreviewDimensions(options: CameraPreviewSetPreviewDimensionsOptions, onSuccess?: CamneraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;
     takePicture(options?: CameraPreviewTakePictureOptions|CameraPreviewSuccessHandler, onSuccess?: CameraPreviewSuccessHandler|CameraPreviewErrorHandler, onError?: CameraPreviewErrorHandler): void;
     takeSnapshot(options?: CameraPreviewTakeSnapshotOptions|CameraPreviewSuccessHandler, onSuccess?: CameraPreviewSuccessHandler|CameraPreviewErrorHandler, onError?: CameraPreviewErrorHandler): void;
     setColorEffect(effect: CameraPreviewColorEffect|string, onSuccess?: CameraPreviewSuccessHandler, onError?: CameraPreviewErrorHandler): void;

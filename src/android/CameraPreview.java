@@ -56,6 +56,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   private static final String TAKE_SNAPSHOT_ACTION = "takeSnapshot";
   private static final String SHOW_CAMERA_ACTION = "showCamera";
   private static final String HIDE_CAMERA_ACTION = "hideCamera";
+  private static final String SET_PREVIEW_DIMENSIONS_ACTION = "setPreviewDimensions";
   private static final String TAP_TO_FOCUS = "tapToFocus";
   private static final String SUPPORTED_PICTURE_SIZES_ACTION = "getSupportedPictureSizes";
   private static final String SUPPORTED_FOCUS_MODES_ACTION = "getSupportedFocusModes";
@@ -158,6 +159,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       return showCamera(callbackContext);
     } else if (HIDE_CAMERA_ACTION.equals(action)) {
       return hideCamera(callbackContext);
+    } else if (SET_PREVIEW_DIMENSIONS_ACTION.equals(action)) {
+      return setPreviewDimensions(args.getInt(0), args.getInt(1), args.getInt(2), args.getInt(3), callbackContext);
     } else if (TAP_TO_FOCUS.equals(action)) {
       return tapToFocus(args.getInt(0), args.getInt(1), callbackContext);
     } else if (SWITCH_CAMERA_ACTION.equals(action)) {
@@ -1037,6 +1040,15 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     fragmentTransaction.hide(fragment);
     fragmentTransaction.commit();
+
+    callbackContext.success();
+    return true;
+  }
+
+  private boolean setPreviewDimensions(int x, int y, int width, int height, CallbackContext callbackContext) {
+    if(this.hasView(callbackContext) == false) {
+      return true;
+    }
 
     callbackContext.success();
     return true;

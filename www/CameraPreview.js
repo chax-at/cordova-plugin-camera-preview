@@ -78,6 +78,15 @@ CameraPreview.show = function(onSuccess, onError) {
   exec(onSuccess, onError, PLUGIN_NAME, "showCamera", []);
 };
 
+CameraPreview.setPreviewDimensions = function (options, onSuccess, onError) {
+  exec(onSuccess, onError, PLUGIN_NAME, "setPreviewDimensions", [
+    options.x,
+    options.y,
+    options.width,
+    options.height
+  ]);
+};
+
 CameraPreview.takeSnapshot = function(opts, onSuccess, onError) {
   if (!opts) {
     opts = {};
