@@ -108,6 +108,8 @@ public class CameraActivity extends Fragment {
   private MediaRecorder mRecorder = null;
   private String recordFilePath;
 
+  private int initialScreenRotation = 0;
+
   public void setEventListener(CameraPreviewListener listener){
     eventListener = listener;
   }
@@ -133,6 +135,8 @@ public class CameraActivity extends Fragment {
 
   private void createCameraPreview(){
     if(mPreview == null) {
+      initialScreenRotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+
       setDefaultCameraId();
 
       //set box position and size
