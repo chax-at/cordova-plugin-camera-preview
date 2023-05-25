@@ -291,17 +291,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     fragment.storeToFile = storeToFile;
     fragment.toBack = toBack;
 
-    DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
-
-    // offset
-    int computedX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, x, metrics);
-    int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
-
-    // size
-    int computedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, metrics);
-    int computedHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, metrics);
-
-    fragment.setRect(computedX, computedY, computedWidth, computedHeight);
+    Dimensions dimensions = getComputedDimensions(x, y, width, height);
+    fragment.setRect(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
     startCameraCallbackContext = callbackContext;
 
@@ -1052,6 +1043,34 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
     callbackContext.success();
     return true;
+  }
+
+  class Dimensions {
+    int x;
+    int y;
+    int width;
+    int height;
+
+    Dimensions(int x, int y, int width, int height) {
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+    }
+  }
+
+  private Dimensions getComputedDimensions(int x, int y, int width, int height) {
+    DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
+
+    // offset
+    int computedX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, x, metrics);
+    int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
+
+    // size
+    int computedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, metrics);
+    int computedHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, metrics);
+
+    return new Dimensions(computedX, computedY, computedWidth, computedHeight);
   }
 
   private boolean tapToFocus(final int pointX, final int pointY, CallbackContext callbackContext) {
