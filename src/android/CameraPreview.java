@@ -1041,6 +1041,9 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       return true;
     }
 
+    Dimensions dimensions = getComputedDimensions(x, y, width, height);
+    fragment.setPreviewDimensions(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+
     callbackContext.success();
     return true;
   }
