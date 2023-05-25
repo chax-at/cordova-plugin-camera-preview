@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 class Preview extends RelativeLayout implements SurfaceHolder.Callback {
+
   private final String TAG = "Preview";
 
   CustomSurfaceView mSurfaceView;
@@ -72,6 +73,7 @@ class Preview extends RelativeLayout implements SurfaceHolder.Callback {
   public int getDisplayOrientation() {
     return displayOrientation;
   }
+
   public int getCameraFacing() {
     return facing;
   }
@@ -79,6 +81,7 @@ class Preview extends RelativeLayout implements SurfaceHolder.Callback {
   public void printPreviewSize(String from) {
     Log.d(TAG, "printPreviewSize from " + from + ": > width: " + mPreviewSize.width + " height: " + mPreviewSize.height);
   }
+
   public void setCameraPreviewSize() {
     if (mCamera != null) {
       Camera.Parameters parameters = mCamera.getParameters();
@@ -86,7 +89,8 @@ class Preview extends RelativeLayout implements SurfaceHolder.Callback {
       mCamera.setParameters(parameters);
     }
   }
-  private void setCameraDisplayOrientation() {
+
+  public void setCameraDisplayOrientation() {
     Camera.CameraInfo info = new Camera.CameraInfo();
     int rotation = ((Activity) getContext()).getWindowManager().getDefaultDisplay().getRotation();
     int degrees = 0;
@@ -244,6 +248,7 @@ class Preview extends RelativeLayout implements SurfaceHolder.Callback {
       Log.e(TAG, "Exception caused by surfaceDestroyed()", exception);
     }
   }
+
   private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
     final double ASPECT_TOLERANCE = 0.1;
     double targetRatio = (double) w / h;
@@ -311,4 +316,5 @@ class Preview extends RelativeLayout implements SurfaceHolder.Callback {
       mCamera.setOneShotPreviewCallback(callback);
     }
   }
+
 }
