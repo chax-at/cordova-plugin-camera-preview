@@ -54,6 +54,8 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.UUID;
 
+import capacitor.android.plugins.R;
+
 public class CameraActivity extends Fragment {
 
   public interface CameraPreviewListener {
@@ -147,6 +149,14 @@ public class CameraActivity extends Fragment {
         layoutParams.height = height;
 
         frameContainerLayout.setLayoutParams(layoutParams);
+
+        int currentScreenRotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = degreesFromScreenOrientation(currentScreenRotation);
+
+        int initialDegrees = degreesFromScreenOrientation(initialScreenRotation);
+
+        RelativeLayout relLayout = view.findViewById(R.id.frame_camera_cont);
+        relLayout.setRotation(degrees - initialDegrees);
       }
     });
   }
